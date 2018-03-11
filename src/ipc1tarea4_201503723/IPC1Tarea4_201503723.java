@@ -16,6 +16,7 @@ public class IPC1Tarea4_201503723 {
      */
     public static void main(String[] args) {
         // TODO code application logic here
+        Calculadora calculadora = new Calculadora();
     }
     
 }
