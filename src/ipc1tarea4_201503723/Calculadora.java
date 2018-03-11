@@ -35,6 +35,7 @@ public class Calculadora {
 
         JTextField txtResultado = new JTextField();
         txtResultado.setBounds(475, 50, 200, 50);
+        //se bloquea la edicion del campo resultado
         txtResultado.setEditable(false);
 
         //togglebuttons para establecer la operacion que se realizara
@@ -56,14 +57,14 @@ public class Calculadora {
 
         //label de error por si no esta sellecionado ningun toggle button
         JLabel lblError = new JLabel("");
-        lblError.setBounds(75, 500, 200, 200);
+        lblError.setBounds(25, 10, 200, 200);
 
         //Se instancia un objeto de tipo operacion
         Operacion operacion = new Operacion();
-        
+
         //se crea un objeto de tipo listener
         ActionListener listener = new ActionListener() {
-            
+
             //evento que se realiza al presionar el boton igual
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -72,31 +73,38 @@ public class Calculadora {
                 esta seleccionado, dependiendo del toggle button seleccionado se 
                 envian los numeros a los metodos sumar, restar, multiplicar y dividir
                 y se retornan los valores, se le coloca comillas para convertirlo a 
-                string y se agrega al campo resultado*/
-                double numero1 = Double.parseDouble(txtNumero1.getText());
-                double numero2 = Double.parseDouble(txtNumero2.getText());
-                String resultado = "";
-                if (btnSuma.isSelected()) {
-                    lblError.setText("");
-                    txtResultado.setText("");
-                    resultado = "" + operacion.sumar(numero1, numero2);
-                } else if (btnResta.isSelected()) {
-                    lblError.setText("");
-                    txtResultado.setText("");
-                    resultado = "" + operacion.restar(numero1, numero2);
-                } else if (btnMultiplicacion.isSelected()) {
-                    lblError.setText("");
-                    txtResultado.setText("");
-                    resultado = "" + operacion.multiplicar(numero1, numero2);
-                } else if (btnDivision.isSelected()) {
-                    lblError.setText("");
-                    txtResultado.setText("");
-                    resultado = "" + operacion.dividir(numero1, numero2);
-                } else {
-                    lblError.setText("SELECCIONE UNA OPERACION");
+                string y se agrega al campo resultado , try catch valida que se ingresen
+                solamente numeros*/
+                double numero1, numero2;
+                try {
+                    numero1 = Double.parseDouble(txtNumero1.getText());
+                    numero2 = Double.parseDouble(txtNumero2.getText());
+                    String resultado = "";
+                    if (btnSuma.isSelected()) {
+                        lblError.setText("");
+                        txtResultado.setText("");
+                        resultado = "" + operacion.sumar(numero1, numero2);
+                    } else if (btnResta.isSelected()) {
+                        lblError.setText("");
+                        txtResultado.setText("");
+                        resultado = "" + operacion.restar(numero1, numero2);
+                    } else if (btnMultiplicacion.isSelected()) {
+                        lblError.setText("");
+                        txtResultado.setText("");
+                        resultado = "" + operacion.multiplicar(numero1, numero2);
+                    } else if (btnDivision.isSelected()) {
+                        lblError.setText("");
+                        txtResultado.setText("");
+                        resultado = "" + operacion.dividir(numero1, numero2);
+                    } else {
+                        lblError.setText("SELECCIONE UNA OPERACION");
+                    }
+
+                    txtResultado.setText(resultado);
+                }catch(NumberFormatException ex){
+                    lblError.setText("INGRESE SOLO NUMEROS");
                 }
 
-                txtResultado.setText(resultado);
             }
         };
         //se agrega un listener al boton igual
